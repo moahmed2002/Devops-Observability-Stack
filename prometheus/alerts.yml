@@ -1,0 +1,42 @@
+groups:
+  - name: basic-alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: " Service {{ $labels.job }} is Down "
+      - alert: HighCPU
+        expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU UP OF 80%"
+
+  - name: slo-alerts
+    rules:
+      - alert: NginxDown
+        expr: nginx_up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Nginx is down"
+      - alert: AvailabilitySLOBreach
+        expr: avg_over_time(probe_success{job="blackbox"}[5m]) < 0.995
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Availability dropped below SLO 99.5%"
+      - alert: LatencySLOBreach
+        expr: probe_duration_seconds{job="blackbox"} > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Response time above 500ms"
+
