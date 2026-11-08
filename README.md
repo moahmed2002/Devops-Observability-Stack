@@ -78,8 +78,6 @@ The stack was deployed on *AWS EC2*:
 
 
 
-![Cloud](screenshots/aws_prometheus_targets
-.png)
+![Cloud](screenshots/aws_prometheus_targets.png)
 
-![Cloud](screenshots/cloud_aws
-.png)
+![Cloud](screenshots/cloud_aws.png)
