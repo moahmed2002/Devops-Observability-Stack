@@ -1,0 +1,13 @@
+route:
+  receiver: discord
+  group_wait: 10s
+  repeat_interval: 1h
+receivers:
+  - name: discord
+    discord_configs:
+      - webhook_url: "https://discord.com/api/webhooks/1568791003488452658/CbOmxcXDmQCCzMG37prZA90m5666F052G98yWQQk1OENMLWHaDcSqH_8O4YIgjLirwU8"
+        title: "🚨 {{ .Status | toUpper }}"
+        message: |
+          {{ range .Alerts }}{{ .Annotations.summary }}
+          Severity: {{ .Labels.severity }}
+          {{ end }}
