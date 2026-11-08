@@ -8,12 +8,12 @@ Full monitoring stack running on Docker Compose.
 - Node Exporter: host metrics
 - cAdvisor: container metrics
 - Nginx: demo app
-- (Next) Alertmanager + Telegram
+- (Next) Alertmanager + Discord
 
 ## Architecture
 App/Host → Exporters → Prometheus → Grafana (dashboards)
                           ↓
-                    Alert rules → Alertmanager → Telegram
+                    Alert rules → Alertmanager → Discord
 
 ## Run
     docker compose up -d
@@ -58,10 +58,28 @@ Alerts: NginxDown, AvailabilitySLOBreach, LatencySLOBreach
 3. docker compose start app → alerts resolve.
 
 
+![prometheus_targets](screenshots/prometheus_targets.png)
 
-![Firing](screenshots/firing.png)
 
-
+![probe_success](screenshots/probe_success.png)
 
 
 ![Discord](screenshots/discord.png)
+
+## Cloud Deployment
+
+The stack was deployed on *AWS EC2*:
+- Region: Europe (Stockholm) eu-north-1
+- OS: Ubuntu Server 22.04
+- Instance type: t3.micro (Free Tier)
+- Docker and Docker Compose installed with the official script
+- Deployed with git clone then docker compose up -d
+- Security group: ports 22, 3000, 9090 and 9093 restricted to my IP only
+
+
+
+![Cloud](screenshots/aws_prometheus_targets
+.png)
+
+![Cloud](screenshots/cloud_aws
+.png)
