@@ -44,7 +44,24 @@ App/Host → Exporters → Prometheus → Grafana (dashboards)
 
 
 ## SLI / SLO
-(هنكملها في الخطوة الجاية)
+
+| SLI | Query | SLO |
+|---|---|---|
+| Availability | avg_over_time(probe_success[5m]) | ≥ 99.5% |
+| Latency | probe_duration_seconds | < 500ms |
+
+Alerts: NginxDown, AvailabilitySLOBreach, LatencySLOBreach
 
 ## Testing
-(هنضيف نتيجة اختبار الـ alert)
+1. docker compose stop app
+2. After ~2 min, NginxDown and AvailabilitySLOBreach fire.
+3. docker compose start app → alerts resolve.
+
+
+
+![Firing](screenshots/firing.png)
+
+
+
+
+![Discord](screenshots/discord.png)
